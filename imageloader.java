@@ -12,6 +12,8 @@ public class imageloader
     public static void main(String[] args)
     {
       BufferedImage img = null;
+
+
       try
       {
         img = ImageIO.read(new File("notlimegReEn.jpg"));
@@ -21,6 +23,19 @@ public class imageloader
         e.printStackTrace();
       }
 
+      int wid = img.getWidth();
+      int hite = img.getHeight();
+
+      int[][] pix = new int[wid][hite];
+
+      for(int k = 0; k < wid; k++){
+        for(int n = 0; n < hite; n++){
+
+          pix[k][n] = img.getRGB(k,n);
+
+        }
+        }
+        System.out.println(pix[0][0]);
     }
 
 
