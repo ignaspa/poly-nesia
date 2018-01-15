@@ -8,15 +8,23 @@ import java.io.File;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.*;
+import java.util.Scanner;
 
 public class imageloader
 {
 
   public static void main(String[] args)
   {
-    int[][][] img = imageloader.load("notlimegReEn.jpg");
-    int[][][] blurred = imageloader.gaussianBlur(img, 10);
-    imageloader.saveImage(blurred, "thecodingtrain.png");
+    Scanner scannyboi = new Scanner(System.in);
+    System.out.println("Please submit path in / file to blur");
+    String pathin = scannyboi.nextLine();
+    System.out.println("Please submit path out / output file");
+    String pathout = scannyboi.nextLine();
+    System.out.println("Please submit radius / blur spread");
+    int radius = scannyboi.nextInt();
+    int[][][] img = imageloader.load(pathin);
+    int[][][] blurred = imageloader.gaussianBlur(img, radius);
+    imageloader.saveImage(blurred, pathout);
   }
   public static void saveImage(int[][][] blurryboi, String path){
     BufferedImage image = new BufferedImage(blurryboi.length, blurryboi[0].length, BufferedImage.TYPE_INT_RGB);
@@ -66,8 +74,8 @@ public class imageloader
     return pix;
   }
 
-  private static double gauss(double x) {
-    double sigma2 = 1.0;
+  private static double gauss(double x, double sigma2) {
+
     return 1.0 / Math.sqrt(2 * Math.PI * sigma2) *
       Math.exp(-Math.pow(x, 2) / 2.0 / sigma2);
   }
@@ -75,11 +83,11 @@ public class imageloader
   private static double[][] gaussianRadius(int radius){
     int mid = radius + 1;
     double[][] val = new double[2*radius + 1][2*radius + 1];
-
+    double sigma2 = Math.pow(radius / 3.0, 2);
     for(int k = 0; k < 2 * radius + 1;k++){
       for(int n = 0; n < 2 * radius + 1;n++){
         double dist = Math.sqrt(Math.pow(k-mid,2) + Math.pow(n-mid,2));
-        val[k][n] = gauss(dist);
+        val[k][n] = gauss(dist, sigma2);
         if (dist > radius){
           val[k][n] = 0;
         }
