@@ -7,13 +7,34 @@ import java.io.IOException;
 import java.io.File;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
+import java.awt.*;
 
 public class imageloader
 {
+
   public static void main(String[] args)
   {
     int[][][] img = imageloader.load("notlimegReEn.jpg");
     int[][][] blurred = imageloader.gaussianBlur(img, 10);
+    imageloader.saveImage(blurred, "thecodingtrain.png");
+  }
+  public static void saveImage(int[][][] blurryboi, String path){
+    BufferedImage image = new BufferedImage(blurryboi.length, blurryboi[0].length, BufferedImage.TYPE_INT_RGB);
+    for(int k = 0; k < blurryboi.length; k++){
+      for(int n = 0; n < blurryboi[0].length; n++){
+        Color color = new Color(blurryboi[k][n][0], blurryboi[k][n][1], blurryboi[k][n][2]);
+        int colnum = color.getRGB();
+        image.setRGB(k, n, colnum);
+      }
+    }
+    try
+    {
+      ImageIO.write(image, "png", new File(path));
+    }
+    catch(IOException e)
+    {
+      e.printStackTrace();
+    }
   }
 
   public static int[][][] load(String path) {
@@ -47,7 +68,7 @@ public class imageloader
 
   private static double gauss(double x) {
     double sigma2 = 1.0;
-    return 1.0 / Math.sqrt(2 * Math.PI * sigma2) * 
+    return 1.0 / Math.sqrt(2 * Math.PI * sigma2) *
       Math.exp(-Math.pow(x, 2) / 2.0 / sigma2);
   }
 
@@ -100,5 +121,7 @@ public class imageloader
     }
     return blurredImage;
   }
+
+
 
 }
