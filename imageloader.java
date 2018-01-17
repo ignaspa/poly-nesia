@@ -10,7 +10,7 @@ import java.awt.Color;
 import java.awt.*;
 import java.util.Scanner;
 
-public class imageloader
+public class imageManipulator
 {
 
   public static void main(String[] args)
@@ -22,9 +22,9 @@ public class imageloader
     String pathout = scannyboi.nextLine();
     System.out.println("Please submit radius / blur spread");
     int radius = scannyboi.nextInt();
-    int[][][] img = imageloader.load(pathin);
-    int[][][] blurred = imageloader.gaussianBlur(img, radius);
-    imageloader.saveImage(blurred, pathout);
+    int[][][] img = imageManipulator.load(pathin);
+    int[][][] blurred = imageManipulator.gaussianBlur(img, radius);
+    imageManipulator.saveImage(blurred, pathout);
   }
   public static void saveImage(int[][][] blurryboi, String path){
     BufferedImage image = new BufferedImage(blurryboi.length, blurryboi[0].length, BufferedImage.TYPE_INT_RGB);
