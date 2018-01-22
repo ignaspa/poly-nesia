@@ -1,3 +1,5 @@
+package imagemanipulator;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +15,7 @@ import java.util.Scanner;
 public class imageManipulator
 {
 
-  public static void main(String[] args)
-  {
-    Scanner scannyboi = new Scanner(System.in);
-    System.out.println("Please submit path in / file to blur");
-    String pathin = scannyboi.nextLine();
-    System.out.println("Please submit path out / output file");
-    String pathout = scannyboi.nextLine();
-    System.out.println("Please submit radius / blur spread");
-    int radius = scannyboi.nextInt();
-    int[][][] img = imageManipulator.load(pathin);
-    int[][][] blurred = imageManipulator.gaussianBlur(img, radius);
-    imageManipulator.saveImage(blurred, pathout);
-  }
+
   public static void saveImage(int[][][] blurryboi, String path){
     BufferedImage image = new BufferedImage(blurryboi.length, blurryboi[0].length, BufferedImage.TYPE_INT_RGB);
     for(int k = 0; k < blurryboi.length; k++){
@@ -44,8 +34,7 @@ public class imageManipulator
       e.printStackTrace();
     }
   }
-
-  public static int[][][] load(String path) {
+  public static BufferedImage load(String path){
     BufferedImage img = null;
 
     try
@@ -56,6 +45,11 @@ public class imageManipulator
     {
       e.printStackTrace();
     }
+    return img;
+  }
+
+  public static int[][][] getImageData(BufferedImage img) {
+
 
     int wid = img.getWidth();
     int hite = img.getHeight();
@@ -96,7 +90,7 @@ public class imageManipulator
     return val;
   }
 
-  private static int[][][] gaussianBlur(int[][][] image, int radius) {
+  public static int[][][] gaussianBlur(int[][][] image, int radius) {
     int[][][] blurredImage = new int[image.length][image[0].length][3];
     double[][] weights = gaussianRadius(radius);
     for(int k = 0; k < image.length; k++) {
