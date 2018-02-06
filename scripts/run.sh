@@ -1,1 +1,1 @@
-cd bin && java main && cd ..
+java -cp bin main
