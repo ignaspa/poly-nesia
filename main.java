@@ -15,13 +15,13 @@ public static void main(String[] args)
   System.out.println("Please submit radius / blur spread");
   int radius = scannyboi.nextInt();
   */
-  String pathin = "../forestGUMP.jpg";
-  String pathout= "../GUMPforest.png";
-  int radius = 60;
+  String pathin = "/Users/ignaspan/Desktop/poly-nesia/example/flower.jpg";
+  String pathout= "/Users/ignaspan/Desktop/poly-nesia/example/flower.png";
+  int radius = 15;
   BufferedImage mg = imageManipulator.load(pathin);
   int[][][] img = imageManipulator.getImageData(mg);
   int[][][] blurred = imageManipulator.gaussianBlur(img, radius);
-  //imageManipulator.saveImage(blurred, pathout);
+  imageManipulator.saveImage(blurred, pathout);
   window gui = new window(mg);
 }
 
