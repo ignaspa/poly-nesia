@@ -124,6 +124,30 @@ public class imageManipulator
     return blurredImage;
   }
 
+  public static Color averageColor(BufferedImage image) {
+    int r = 0;
+    int g = 0;
+    int b = 0;
 
+    for (int x = 0; x < image.getWidth(); x++) {
+      for (int y = 0; y < image.getHeight(); y++) {
+        Color pixel = new Color(image.getRGB(x, y));
+        r += pixel.getRed();
+        g += pixel.getGreen();
+        b += pixel.getBlue();
+      }
+    }
+
+    int pixelCount = image.getWidth() * image.getHeight();
+    r /= pixelCount;
+    g /= pixelCount;
+    b /= pixelCount;
+
+    return new Color(r, g, b);
+  }
+
+  public static Color oppositeColor(Color color) {
+    return new Color(color.getBlue(), color.getRed(), color.getGreen());
+  }
 
 }

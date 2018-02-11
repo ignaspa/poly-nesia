@@ -2,25 +2,48 @@ package gui;
 
 import java.awt.*;
 import java.awt.Graphics;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;
 
-public class ImagePanel extends Panel{
+import java.util.ArrayList;
+import java.awt.Point;
 
-BufferedImage photo;
-int margin;
+import imagemanipulator.imageManipulator;
 
-public ImagePanel(BufferedImage picture){
-this.photo = picture;
-this.margin = 20;
-this.setPreferredSize(new Dimension(picture.getWidth() + 2*this.margin, picture.getHeight() + 2*this.margin));
+public class ImagePanel extends Panel {
 
+  BufferedImage photo;
+  int margin;
+  ArrayList<Point> selection;
+  Color selectionColor;
 
-}
-public void paint(Graphics g){
-  g.drawImage(this.photo, this.margin, this.margin, null);
-}
+  public ImagePanel(BufferedImage picture, ArrayList<Point> selection) {
+    this.selection = selection;
+    this.photo = picture;
+    this.margin = 20;
+    this.setPreferredSize(new Dimension(picture.getWidth() + 2 * this.margin, picture.getHeight() + 2 * this.margin));
+  }
 
+  public void paint(Graphics g) {
+    g.drawImage(this.photo, this.margin, this.margin, null);
 
+    if (selection.size() == 1) {
+      int pointRadius = 5;
+      Point p = selection.get(0);
+      g.setColor(Color.BLACK);
+      g.fillOval((int) p.getX() - pointRadius, (int) p.getY() - pointRadius, pointRadius * 2, pointRadius * 2);
+    } else {
+      int[] xPoints = new int[selection.size()];
+      int[] yPoints = new int[selection.size()];
+      for (int i = 0; i < selection.size(); i++) {
+        xPoints[i] = (int) selection.get(i).getX();
+        yPoints[i] = (int) selection.get(i).getY();
+      }
+      g.setColor(Color.BLACK);
+      g.drawPolygon(xPoints, yPoints, selection.size());
+    }
+
+  }
 
 }
