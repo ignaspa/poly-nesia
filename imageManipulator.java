@@ -1,5 +1,5 @@
 package imagemanipulator;
-
+import java.awt.Point;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +67,44 @@ public class imageManipulator
 
     return pix;
   }
+  public static BufferedImage enclosedImage(List<Point> outline, BufferedImage pic){
+    BufferedImage enclosed = new BufferedImage(pic.getWidth(), pic.getHeight())
+    for(int i = 0; i < pic.getWidth(); i++){
+      for(int k = 0; k < pic.getHeight(), k++){
+        Point z = new Point(i,k);
+        if (pointInOutline(z, outline)){
+          enclosed.setRGB(i,k, pic.getRGB(i,k));
+        }
+      }
+    }
+    return enclosed;
+  }
 
+  private static boolean pointInOutline(Point j, list<Point>){
+
+  }
+  private static boolean rayLineIntersect(int ox, int oy, int x1, int y1,
+                                          int x2, int y2){
+    double dx = 1;
+    double dy = 0;
+    double lx = x2 - x1; //x difference between points of edge
+    double ly = y2 - y1; //y difference between points of edge
+    double cross = (dx * ly)
+    if (cross == 0){ //for line is parallel
+      if (oy == y1){
+        if ((x1 >= ox) ^ (x2 >= ox)){
+          return True;
+        }
+      }
+      return False;
+    }
+    double u = (oy - y1) / cross
+    
+
+    if ()
+
+
+  }
   private static double gauss(double x, double sigma2) {
 
     return 1.0 / Math.sqrt(2 * Math.PI * sigma2) *

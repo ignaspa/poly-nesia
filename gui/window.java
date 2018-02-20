@@ -1,21 +1,22 @@
 package gui;
-
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
-
 import java.awt.Point;
 import java.util.ArrayList;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class window extends Frame {
-
+  BufferedImage pic;
   ImagePanel pan;
   public ArrayList<Point> selection = new ArrayList();
 
   public window(BufferedImage pic) {
+    this.pic = pic;
     pan = new ImagePanel(pic, selection);
     this.add(pan);
     this.pack();
@@ -35,6 +36,12 @@ public class window extends Frame {
     pan.repaint();
   }
 
+  public void poly(){
+    imageManipulator.enclosedImage(selection, pic);
+
+  }
+
+  //handler classes fam
   private class MouseEventHandler extends MouseAdapter {
     window W;
 
@@ -47,7 +54,6 @@ public class window extends Frame {
 
       switch (e.getModifiers()) {
       case InputEvent.BUTTON1_MASK: // left
-        System.out.println("We got clicked!");
         this.W.selectPoint(e.getPoint());
         break;
       case InputEvent.BUTTON3_MASK: // right
@@ -56,6 +62,26 @@ public class window extends Frame {
       }
 
     }
-  }
 
+  }
+  private class KeyEventHandler extends KeyAdapter{
+    window W;
+
+    public KeyEventHandler(window wndw) {
+      this.W = wndw;
+    }
+    @Override
+    public void keyPressed(KeyEvent e){
+      switch (e.getKeyCode()) {
+      case 13: //enter
+        this.W.poly();
+        break;
+      }
+
+
+    }
+
+
+
+  }
 }

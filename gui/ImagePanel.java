@@ -42,6 +42,7 @@ public class ImagePanel extends Panel {
       }
       g.setColor(Color.BLACK);
       g.drawPolygon(xPoints, yPoints, selection.size());
+      
     }
 
   }
