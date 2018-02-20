@@ -68,11 +68,11 @@ public class imageManipulator
     return pix;
   }
   public static BufferedImage enclosedImage(List<Point> outline, BufferedImage pic){
-    BufferedImage enclosed = new BufferedImage(pic.getWidth(), pic.getHeight())
+    BufferedImage enclosed = new BufferedImage(pic.getWidth(), pic.getHeight(), BufferedImage.TYPE_INT_RGB);
     for(int i = 0; i < pic.getWidth(); i++){
-      for(int k = 0; k < pic.getHeight(), k++){
+      for(int k = 0; k < pic.getHeight(); k++){
         Point z = new Point(i,k);
-        if (pointInOutline(z, outline)){
+        if (imageManipulator.pointInOutline(z, outline)){
           enclosed.setRGB(i,k, pic.getRGB(i,k));
         }
       }
@@ -80,29 +80,39 @@ public class imageManipulator
     return enclosed;
   }
 
-  private static boolean pointInOutline(Point j, list<Point>){
-
+  private static boolean pointInOutline(Point j, List<Point> outline){
+    int countsect = 0;
+    for(int i = 0; i < outline.size(); i++){
+      Point r = outline.get(i);
+      Point t = outline.get((i+1) % outline.size());
+      if (imageManipulator.rayLineIntersect(j.getX(), j.getY(), r.getX(), r.getY(), t.getX(), t.getY())){
+        countsect++;
+      }
+    }
+    return (countsect % 2 != 0);
   }
-  private static boolean rayLineIntersect(int ox, int oy, int x1, int y1,
-                                          int x2, int y2){
+
+
+  private static boolean rayLineIntersect(double ox, double oy, double x1, double y1,
+                                          double x2, double y2){
+    oy += .5;
     double dx = 1;
     double dy = 0;
     double lx = x2 - x1; //x difference between points of edge
     double ly = y2 - y1; //y difference between points of edge
-    double cross = (dx * ly)
+    double cross = (dx * ly);
     if (cross == 0){ //for line is parallel
       if (oy == y1){
         if ((x1 >= ox) ^ (x2 >= ox)){
-          return True;
+          return true;
         }
       }
-      return False;
+      return false;
     }
-    double u = (oy - y1) / cross
-    
+    double u = (oy - y1) / cross;
+    double t = (((x1 - ox) * ly) - ((y1 - oy) * lx)) / cross;
 
-    if ()
-
+    return (u > 0 && u <= 1) && t >= 0;
 
   }
   private static double gauss(double x, double sigma2) {

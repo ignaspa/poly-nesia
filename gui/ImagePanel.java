@@ -37,14 +37,20 @@ public class ImagePanel extends Panel {
       int[] xPoints = new int[selection.size()];
       int[] yPoints = new int[selection.size()];
       for (int i = 0; i < selection.size(); i++) {
-        xPoints[i] = (int) selection.get(i).getX();
-        yPoints[i] = (int) selection.get(i).getY();
+        xPoints[i] = (int) selection.get(i).getX() + this.margin;
+        yPoints[i] = (int) selection.get(i).getY() + this.margin;
       }
       g.setColor(Color.BLACK);
       g.drawPolygon(xPoints, yPoints, selection.size());
-      
+
     }
 
   }
-
+  public void setImage(BufferedImage newOne){
+    photo = newOne;
+    repaint();
+  }
+  public int getMargin(){
+    return this.margin;
+  }
 }

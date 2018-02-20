@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import imagemanipulator.imageManipulator;
 
 public class window extends Frame {
   BufferedImage pic;
@@ -22,10 +23,12 @@ public class window extends Frame {
     this.pack();
     this.setVisible(true);
     pan.addMouseListener(new MouseEventHandler(this));
+    pan.addKeyListener(new KeyEventHandler(this));
   }
 
   public void selectPoint(Point p) {
-    selection.add(p);
+    Point q = new Point((int)p.getX() - pan.getMargin(), (int)p.getY() - pan.getMargin());
+    selection.add(q);
     pan.repaint();
   }
 
@@ -37,8 +40,8 @@ public class window extends Frame {
   }
 
   public void poly(){
-    imageManipulator.enclosedImage(selection, pic);
-
+    BufferedImage k = imageManipulator.enclosedImage(selection, pic);
+    pan.setImage(k);
   }
 
   //handler classes fam
@@ -73,10 +76,13 @@ public class window extends Frame {
     @Override
     public void keyPressed(KeyEvent e){
       switch (e.getKeyCode()) {
-      case 13: //enter
+      case KeyEvent.VK_ENTER: //enter
+
         this.W.poly();
         break;
+
       }
+
 
 
     }

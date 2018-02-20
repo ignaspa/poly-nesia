@@ -19,9 +19,9 @@ public static void main(String[] args)
   String pathout= "example/flower.png";
   int radius = 15;
   BufferedImage mg = imageManipulator.load(pathin);
-  int[][][] img = imageManipulator.getImageData(mg);
-  int[][][] blurred = imageManipulator.gaussianBlur(img, radius);
-  imageManipulator.saveImage(blurred, pathout);
+  //int[][][] img = imageManipulator.getImageData(mg);
+  //int[][][] blurred = imageManipulator.gaussianBlur(img, radius);
+  //imageManipulator.saveImage(blurred, pathout);
   window gui = new window(mg);
 }
 
