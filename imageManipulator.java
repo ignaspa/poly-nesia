@@ -144,17 +144,22 @@ public class imageManipulator
     int[] x = {1, 0, -1,
                2, 0, -2,
                1, 0, -1};
+
     int[][][] sobs = new int[image.length][image[0].length][image[0][0].length];
+
     for(int k = 1; k < image.length - 1; k++){
       for(int i = 1; i < image[0].length - 1; i++){
         double[][] accumulator = {{0, 0, 0}, {0, 0, 0}};
+
         for(int w = 0; w < 3; w++){
           for(int v = 0; v < 3; v++){
             for(int z = 0; i < image[0][0].length; i++){
-
+              
             }
           }
         }
+        sobs[k][i] = Math.sqrt(Math.pow(accumulator[0], 2) +
+                               Math.pow(accumulator[1], 2))
       }
     }
 
