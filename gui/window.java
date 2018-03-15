@@ -42,6 +42,19 @@ public class window extends Frame {
   public void poly(){
     BufferedImage k = imageManipulator.enclosedImage(selection, pic);
     pan.setImage(k);
+
+  }
+  public void sobel(){
+    int[][][] k = imageManipulator.getImageData(pic);
+    double[][] k2 = imageManipulator.sobel(k);
+    for(int x = 0; x < pic.getWidth();x++){
+      for(int y = 0; y < pic.getHeight(); y++){
+        int intensity = (int)Math.min(k2[x][y], 255);
+        Color color = new Color(intensity, intensity, intensity);
+        pic.setRGB(x,y,color.getRGB());
+      }
+    }
+    pan.repaint();
   }
 
   //handler classes fam
@@ -75,19 +88,21 @@ public class window extends Frame {
     }
     @Override
     public void keyPressed(KeyEvent e){
+      System.out.print(e.getKeyCode());
       switch (e.getKeyCode()) {
       case KeyEvent.VK_ENTER: //enter
 
         this.W.poly();
         break;
 
+      case KeyEvent.VK_S: //s
+
+        this.W.sobel();
+        System.out.print("hello, its me");
+        break;
+
+
       }
-
-
-
     }
-
-
-
   }
 }

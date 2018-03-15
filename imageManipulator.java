@@ -136,7 +136,7 @@ public class imageManipulator
     }
     return val;
   }
-  public static int[][][] sobel(int[][][] image){
+  public static double[][] sobel(int[][][] image){
     int[] y = {1, 2, 1,
                0, 0, 0,
               -1, -2, -1,};
@@ -145,7 +145,7 @@ public class imageManipulator
                2, 0, -2,
                1, 0, -1};
 
-    int[][][] sobs = new int[image.length][image[0].length][image[0][0].length];
+    double[][] sobs = new double[image.length][image[0].length];
 
     for(int k = 1; k < image.length - 1; k++){
       for(int i = 1; i < image[0].length - 1; i++){
@@ -153,17 +153,30 @@ public class imageManipulator
 
         for(int w = 0; w < 3; w++){
           for(int v = 0; v < 3; v++){
-            for(int z = 0; i < image[0][0].length; i++){
-              
+            int[] color = image[k + w - 1][i + v - 1];
+            int sobind = v*3 + w;
+            //System.out.println(v + ", " + w);
+            for(int z = 0; z < image[0][0].length; z++){
+              accumulator[0][z] += color[z] * x[sobind];
+
+              accumulator[1][z] += color[z] * y[sobind];
             }
           }
         }
-        sobs[k][i] = Math.sqrt(Math.pow(accumulator[0], 2) +
-                               Math.pow(accumulator[1], 2))
+
+        double magnitude = 0;
+        for(int u = 0; u < accumulator.length; u++){
+          for(int h = 0; h < accumulator[0].length; h++){
+            magnitude += Math.pow(accumulator[u][h], 2);
+          }
+        }
+        magnitude = Math.sqrt(magnitude);
+        sobs[k][i] = magnitude;
+        System.out.println(magnitude);
       }
     }
 
-
+    return sobs;
   }
 
   public static int[][][] gaussianBlur(int[][][] image, int radius) {
