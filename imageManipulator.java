@@ -136,6 +136,48 @@ public class imageManipulator
     }
     return val;
   }
+  public static double[][] sobel(int[][][] image){
+    int[] y = {1, 2, 1,
+               0, 0, 0,
+              -1, -2, -1,};
+
+    int[] x = {1, 0, -1,
+               2, 0, -2,
+               1, 0, -1};
+
+    double[][] sobs = new double[image.length][image[0].length];
+
+    for(int k = 1; k < image.length - 1; k++){
+      for(int i = 1; i < image[0].length - 1; i++){
+        double[][] accumulator = {{0, 0, 0}, {0, 0, 0}};
+
+        for(int w = 0; w < 3; w++){
+          for(int v = 0; v < 3; v++){
+            int[] color = image[k + w - 1][i + v - 1];
+            int sobind = v*3 + w;
+            //System.out.println(v + ", " + w);
+            for(int z = 0; z < image[0][0].length; z++){
+              accumulator[0][z] += color[z] * x[sobind];
+
+              accumulator[1][z] += color[z] * y[sobind];
+            }
+          }
+        }
+
+        double magnitude = 0;
+        for(int u = 0; u < accumulator.length; u++){
+          for(int h = 0; h < accumulator[0].length; h++){
+            magnitude += Math.pow(accumulator[u][h], 2);
+          }
+        }
+        magnitude = Math.sqrt(magnitude);
+        sobs[k][i] = magnitude;
+        System.out.println(magnitude);
+      }
+    }
+
+    return sobs;
+  }
 
   public static int[][][] gaussianBlur(int[][][] image, int radius) {
     int[][][] blurredImage = new int[image.length][image[0].length][3];
