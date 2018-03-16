@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.Point;
+import java.util.List;
 import java.util.ArrayList;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -15,6 +16,7 @@ public class window extends Frame {
   BufferedImage pic;
   ImagePanel pan;
   public ArrayList<Point> selection = new ArrayList();
+  public List<Point> trianglePoints;
 
   public window(BufferedImage pic) {
     this.pic = pic;
@@ -47,6 +49,11 @@ public class window extends Frame {
   public void sobel(){
     int[][][] k = imageManipulator.getImageData(pic);
     double[][] k2 = imageManipulator.sobel(k);
+
+    // Test the point generation
+    List<Point> points = imageManipulator.distributePoints(k2, 1000);
+    trianglePoints = points;
+    
     for(int x = 0; x < pic.getWidth();x++){
       for(int y = 0; y < pic.getHeight(); y++){
         int intensity = (int)Math.min(k2[x][y], 255);
@@ -54,6 +61,12 @@ public class window extends Frame {
         pic.setRGB(x,y,color.getRGB());
       }
     }
+
+    Color pointColor = Color.RED;
+    for (Point p : points) {
+      pic.setRGB((int) p.getX(), (int) p.getY(), pointColor.getRGB());
+    }
+
     pan.repaint();
   }
 

@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.*;
 import java.util.Scanner;
+import java.util.Random;
 
 public class imageManipulator
 {
@@ -155,7 +156,6 @@ public class imageManipulator
           for(int v = 0; v < 3; v++){
             int[] color = image[k + w - 1][i + v - 1];
             int sobind = v*3 + w;
-            //System.out.println(v + ", " + w);
             for(int z = 0; z < image[0][0].length; z++){
               accumulator[0][z] += color[z] * x[sobind];
 
@@ -172,11 +172,40 @@ public class imageManipulator
         }
         magnitude = Math.sqrt(magnitude);
         sobs[k][i] = magnitude;
-        System.out.println(magnitude);
       }
     }
 
     return sobs;
+  }
+
+  // distributePoints returns nPoints random points concentrated according to the density array
+  public static List<Point> distributePoints(double[][] density, int nPoints) {
+    // We find the max density to normalize
+    double maxDensity = 0;
+    for (int i = 0; i < density.length; i++) {
+      for (int j = 0; j < density[0].length; j++) {
+        if (density[i][j] > maxDensity) {
+          maxDensity = density[i][j];
+        }
+      }
+    }
+    if (maxDensity == 0) {
+      return null;
+    }
+
+    Random rand = new Random();
+    ArrayList<Point> points = new ArrayList();
+    while (points.size() < nPoints) {
+      int x = rand.nextInt(density.length);
+      int y = rand.nextInt(density[0].length);
+      double sample = rand.nextDouble();
+      double prob = Math.pow((density[x][y] / maxDensity), 2); // Square the density to skew towards higher density
+      if (prob >= sample) {
+        points.add(new Point(x, y));
+      }
+    }
+
+    return points;
   }
 
   public static int[][][] gaussianBlur(int[][][] image, int radius) {
