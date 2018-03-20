@@ -7,7 +7,7 @@ public class main
 
 public static void main(String[] args)
 {
-  /*canner scannyboi = new Scanner(System.in);
+  /*Scanner scannyboi = new Scanner(System.in);
   System.out.println("Please submit path in / file to blur");
   String pathin = scannyboi.nextLine();
   System.out.println("Please submit path out / output file");

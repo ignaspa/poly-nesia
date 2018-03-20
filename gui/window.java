@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import imagemanipulator.imageManipulator;
+import javax.swing.BoxLayout;
+
 
 public class window extends Frame {
   BufferedImage pic;
@@ -18,8 +20,13 @@ public class window extends Frame {
 
   public window(BufferedImage pic) {
     this.pic = pic;
+    setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     pan = new ImagePanel(pic, selection);
     this.add(pan);
+
+    buttonPanel bp = new buttonPanel();
+    this.add(bp);
+
     this.pack();
     this.setVisible(true);
     pan.addMouseListener(new MouseEventHandler(this));
