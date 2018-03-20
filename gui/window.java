@@ -17,6 +17,7 @@ public class window extends Frame {
   BufferedImage pic;
   ImagePanel pan;
   public ArrayList<Point> selection = new ArrayList();
+  public int radius = 0;
 
   public window(BufferedImage pic) {
     this.pic = pic;
@@ -24,7 +25,7 @@ public class window extends Frame {
     pan = new ImagePanel(pic, selection);
     this.add(pan);
 
-    buttonPanel bp = new buttonPanel();
+    buttonPanel bp = new buttonPanel(this);
     this.add(bp);
 
     this.pack();
