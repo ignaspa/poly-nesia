@@ -60,20 +60,23 @@ public class window extends Frame {
     double[][] k2 = imageManipulator.sobel(k);
 
     // Test the point generation
-    List<Point> points = imageManipulator.distributePoints(k2, 1000);
+    List<Point> points = imageManipulator.distributePoints(k2, 4000);
     trianglePoints = points;
     
     for(int x = 0; x < pic.getWidth();x++){
       for(int y = 0; y < pic.getHeight(); y++){
-        int intensity = (int)Math.min(k2[x][y], 255);
+        int intensity = (int)(k2[x][y]*255);
         Color color = new Color(intensity, intensity, intensity);
         pic.setRGB(x,y,color.getRGB());
       }
     }
 
     Color pointColor = Color.RED;
+    Graphics g = pic.getGraphics();
+    g.setColor(pointColor);
     for (Point p : points) {
-      pic.setRGB((int) p.getX(), (int) p.getY(), pointColor.getRGB());
+      g.drawRect(p.x - 1, p.y - 1, 3, 3);
+      //pic.setRGB((int) p.getX(), (int) p.getY(), pointColor.getRGB());
     }
 
     pan.repaint();
