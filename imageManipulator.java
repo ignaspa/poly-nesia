@@ -164,7 +164,10 @@ public class imageManipulator
 
 
   private static double[][] gaussianRadius(int radius){
-    //this method applies a guassian radius
+    //this method applies uses the gauss method to
+    //weight values around a pixel to simulate a gaussian curve for
+    //use in blurring.
+    }
     int mid = radius + 1;
     double[][] val = new double[2*radius + 1][2*radius + 1];
     double sigma2 = Math.pow(radius / 3.0, 2);
@@ -179,7 +182,15 @@ public class imageManipulator
     }
     return val;
   }
+
+
+
+
   public static double[][] sobel(int[][][] image){
+    //this will return a all the pixels with a given "intensity"
+    //based on how much the color is changing on that pixel,
+    //both in the x and y direction. The method uses kernels to
+    //basically map vertical and horizontal changes.
     int[] y = {1, 2, 1,
                0, 0, 0,
               -1, -2, -1,};
@@ -239,6 +250,8 @@ public class imageManipulator
 
     return sobs;
   }
+
+
 
   // distributePoints returns nPoints random points concentrated according to the density array
   public static List<Point> distributePoints(double[][] density, int nPoints) {
