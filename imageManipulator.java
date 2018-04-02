@@ -167,7 +167,6 @@ public class imageManipulator
     //this method applies uses the gauss method to
     //weight values around a pixel to simulate a gaussian curve for
     //use in blurring.
-    }
     int mid = radius + 1;
     double[][] val = new double[2*radius + 1][2*radius + 1];
     double sigma2 = Math.pow(radius / 3.0, 2);
@@ -251,7 +250,40 @@ public class imageManipulator
     return sobs;
   }
 
+  public static List<Point> distributePoisson(double[][] density, double radius) {
+    Random rand = new Random();
+    ArrayList<Point> points = new ArrayList();
 
+    int cuttoff = 30;
+
+    for (int rejectedCount = 0; rejectedCount < cuttoff;) {
+      Point sample = new Point(rand.nextInt(density.length), rand.nextInt(density[0].length));
+      double sampleDensity = density[sample.x][sample.y];
+
+      double minDist = (0.05 + 0.95 * Math.pow(1-sampleDensity,6)) * radius;
+      double minDist2 = minDist*minDist;//radius * radius;//
+
+      boolean reject = false;
+      for (Point p : points) {
+        double dist2 = (sample.x - p.x) * (sample.x - p.x) + (sample.y - p.y) * (sample.y - p.y);
+        if (dist2 < minDist2) {
+          reject = true;
+          break;
+        }
+      }
+      //if (sampleDensity<0.5) {
+      //  reject = true;
+      //}
+      if (reject) {
+        rejectedCount++;
+        continue;
+      }
+      points.add(sample);
+      rejectedCount = 0;
+    }
+
+    return points;
+  }
 
   // distributePoints returns nPoints random points concentrated according to the density array
   public static List<Point> distributePoints(double[][] density, int nPoints) {
