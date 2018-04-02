@@ -16,8 +16,13 @@ import java.util.Random;
 public class imageManipulator
 {
 
+ // This class is the class we use to do the primary modifications on the
+ // input image.
+
+
 
   public static void saveImage(int[][][] blurryboi, String path){
+    //This method saves the image once we are done editing it.
     BufferedImage image = new BufferedImage(blurryboi.length, blurryboi[0].length, BufferedImage.TYPE_INT_RGB);
     for(int k = 0; k < blurryboi.length; k++){
       for(int n = 0; n < blurryboi[0].length; n++){
@@ -35,7 +40,13 @@ public class imageManipulator
       e.printStackTrace();
     }
   }
+
+
+
+
   public static BufferedImage load(String path){
+    //this method takes the input image file name and creates the
+    //element for us to manipulate.
     BufferedImage img = null;
 
     try
@@ -49,9 +60,14 @@ public class imageManipulator
     return img;
   }
 
+
+
+
+
   public static int[][][] getImageData(BufferedImage img) {
-
-
+    //This method takes the BufferedImage we got from the source, and
+    //proceeds to make a 3 dimensional array for it so that
+    //we have access to the RGB color data for each pixel.
     int wid = img.getWidth();
     int hite = img.getHeight();
 
@@ -68,7 +84,13 @@ public class imageManipulator
 
     return pix;
   }
+
+
+
+
   public static BufferedImage enclosedImage(List<Point> outline, BufferedImage pic){
+    //this method makes a new BufferedImage based off of the pixels
+    //in list of pixels within the enclosed area chosen by the user.
     BufferedImage enclosed = new BufferedImage(pic.getWidth(), pic.getHeight(), BufferedImage.TYPE_INT_RGB);
     for(int i = 0; i < pic.getWidth(); i++){
       for(int k = 0; k < pic.getHeight(); k++){
@@ -81,7 +103,13 @@ public class imageManipulator
     return enclosed;
   }
 
+
+
+
   private static boolean pointInOutline(Point j, List<Point> outline){
+    //this method finds if a point is within the outline
+    //by checking how many times a line from it intersects
+    //with rays that make up the outline, and it uses rayLineIntersect to do so.
     int countsect = 0;
     for(int i = 0; i < outline.size(); i++){
       Point r = outline.get(i);
@@ -94,8 +122,12 @@ public class imageManipulator
   }
 
 
+
+
   private static boolean rayLineIntersect(double ox, double oy, double x1, double y1,
                                           double x2, double y2){
+    //this method checks if lines from a point intersect with other lines,
+    //aka rays, which in this case are the lines that make up the outline.
     oy += .5;
     double dx = 1;
     double dy = 0;
@@ -116,13 +148,23 @@ public class imageManipulator
     return (u > 0 && u <= 1) && t >= 0;
 
   }
-  private static double gauss(double x, double sigma2) {
 
+
+
+
+  private static double gauss(double x, double sigma2) {
+    //this method creates a double that is a value for a given
+    //gaussian distribution, using the formula.
     return 1.0 / Math.sqrt(2 * Math.PI * sigma2) *
       Math.exp(-Math.pow(x, 2) / 2.0 / sigma2);
   }
 
+
+
+
+
   private static double[][] gaussianRadius(int radius){
+    //this method applies a guassian radius
     int mid = radius + 1;
     double[][] val = new double[2*radius + 1][2*radius + 1];
     double sigma2 = Math.pow(radius / 3.0, 2);
@@ -217,7 +259,7 @@ public class imageManipulator
 
     return points;
   }
-  
+
   public static ArrayList<Point> relaxPoints(double[][]density, List<Point> points) {
     double baseDistance = Math.sqrt((density.length * density[0].length) / points.size());
 

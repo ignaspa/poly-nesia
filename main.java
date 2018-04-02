@@ -4,7 +4,8 @@ import java.util.Scanner;
 import java.awt.image.BufferedImage;
 public class main
 {
-
+  //write sh scripts/compile.sh in the terminal to compile this project
+  //write sh scripts/run.sh in the terminal to run this project
 public static void main(String[] args)
 {
   /*Scanner scannyboi = new Scanner(System.in);
