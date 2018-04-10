@@ -266,7 +266,7 @@ public class imageManipulator
       boolean reject = false;
       for (Point p : points) {
         double averageDensity = (sampleDensity + density[p.x][p.y]) / 2;
-        double minDist = (0.15 + 0.85 * Math.pow(1-averageDensity,5)) * radius;
+        double minDist = (0.05 + 0.95 * Math.pow(1-averageDensity,5)) * radius;
         double minDist2 = minDist*minDist;
 
         double dist2 = (sample.x - p.x) * (sample.x - p.x) + (sample.y - p.y) * (sample.y - p.y);
