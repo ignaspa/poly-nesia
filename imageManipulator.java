@@ -286,64 +286,7 @@ public class imageManipulator
     return points;
   }
 
-  // distributePoints returns nPoints random points concentrated according
-  // to the density array
-  public static List<Point> distributePoints(double[][] density, int nPoints) {
-    Random rand = new Random();
-    ArrayList<Point> points = new ArrayList();
-    while (points.size() < nPoints) {
-      int x = rand.nextInt(density.length);
-      int y = rand.nextInt(density[0].length);
-      double sample = rand.nextDouble();
-      double prob = density[x][y];
-      if (prob >= sample) {
-        points.add(new Point(x, y));
-      }
-    }
-
-    for (int i = 0; i < 10; i++)
-      points = relaxPoints(density, points);
-
-    return points;
-  }
-
-  public static ArrayList<Point> relaxPoints(double[][]density, List<Point> points) {
-    double baseDistance = Math.sqrt((density.length * density[0].length) / points.size());
-
-    ArrayList<Point> relaxedPoints = new ArrayList();
-    for (Point p : points) {
-      Point closest = null;
-      int dist2 = 1 << 16; // 2^16
-      for (Point other : points) {
-        if (p == other) continue;
-        int dist2other = (p.x - other.x) * (p.x - other.x) + (p.y - other.y) * (p.y - other.y);
-        if (dist2other < dist2) {
-          dist2 = dist2other;
-          closest = other;
-        }
-      }
-      double dist = Math.sqrt(dist2);
-      if (dist == 0) continue;
-
-      double targetDist = (2 - 1.5 * density[p.x][p.y]) * baseDistance;
-
-      double nudge = (targetDist / dist);
-
-      Point relaxed = new Point();
-      relaxed.x = (int)(closest.getX() * (1-nudge) + p.getX() * nudge);
-      relaxed.y = (int)(closest.getY() * (1-nudge) + p.getY() * nudge);
-
-      if (relaxed.x < 0) continue;
-      if (relaxed.y < 0) continue;
-      if (relaxed.x >= density.length) continue;
-      if (relaxed.y >= density[0].length) continue;
-
-      relaxedPoints.add(relaxed);
-    }
-    return relaxedPoints;
-  }
-
-
+  
 
 
   public static int[][][] gaussianBlur(int[][][] image, int radius) {

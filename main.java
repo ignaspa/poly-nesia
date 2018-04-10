@@ -2,6 +2,7 @@ import gui.window;
 import imagemanipulator.imageManipulator;
 import java.util.Scanner;
 import java.awt.image.BufferedImage;
+import delaunay_triangulation.Delaunay_Triangulation;
 public class main
 {
   //write sh scripts/compile.sh in the terminal to compile this project
