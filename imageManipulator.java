@@ -254,17 +254,18 @@ public class imageManipulator
     Random rand = new Random();
     ArrayList<Point> points = new ArrayList();
 
-    int cuttoff = 30;
+    int cuttoff = 1000;
 
     for (int rejectedCount = 0; rejectedCount < cuttoff;) {
       Point sample = new Point(rand.nextInt(density.length), rand.nextInt(density[0].length));
       double sampleDensity = density[sample.x][sample.y];
 
-      double minDist = (0.05 + 0.95 * Math.pow(1-sampleDensity,6)) * radius;
-      double minDist2 = minDist*minDist;//radius * radius;//
-
       boolean reject = false;
       for (Point p : points) {
+        double averageDensity = (sampleDensity + density[p.x][p.y]) / 2;
+        double minDist = (0.15 + 0.85 * Math.pow(1-averageDensity,5)) * radius;
+        double minDist2 = minDist*minDist;
+
         double dist2 = (sample.x - p.x) * (sample.x - p.x) + (sample.y - p.y) * (sample.y - p.y);
         if (dist2 < minDist2) {
           reject = true;
