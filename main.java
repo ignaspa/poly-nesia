@@ -2,6 +2,7 @@ import gui.window;
 import imagemanipulator.imageManipulator;
 import java.util.Scanner;
 import java.awt.image.BufferedImage;
+
 public class main
 {
   //write sh scripts/compile.sh in the terminal to compile this project
@@ -17,7 +18,7 @@ public static void main(String[] args)
   System.out.println("Please submit radius / blur spread");
   int radius = scannyboi.nextInt();
   */
-  String pathin = "example/mountain.jpg";
+  String pathin = "example/flower.png";
   //String pathout= "example/flower.png";
   //int radius = 15;
   BufferedImage mg = imageManipulator.load(pathin);
