@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import imagemanipulator.imageManipulator;
+import imagemanipulator.Triangle;
 import javax.swing.BoxLayout;
 
 
@@ -63,7 +64,7 @@ public class window extends Frame {
     //List<Point> points = imageManipulator.distributePoints(k2, 4000);
     List<Point> points = imageManipulator.distributePoisson(k2, 60);
     trianglePoints = points;
-    
+    List<Triangle> tris = imageManipulator.delaunay(points);
     for(int x = 0; x < pic.getWidth();x++){
       for(int y = 0; y < pic.getHeight(); y++){
         int intensity = (int)(k2[x][y]*255);
@@ -78,6 +79,13 @@ public class window extends Frame {
     for (Point p : points) {
       g.drawRect(p.x - 1, p.y - 1, 2, 2);
       //pic.setRGB((int) p.getX(), (int) p.getY(), pointColor.getRGB());
+    }
+
+    g.setColor(Color.GREEN);
+    for (Triangle t : tris) {
+      int[] x = new int[] {t.points[0].x, t.points[1].x, t.points[2].x};
+      int[] y = new int[] {t.points[0].y, t.points[1].y, t.points[2].y};
+      g.drawPolygon(x, y, 3);
     }
 
     pan.repaint();
@@ -114,19 +122,14 @@ public class window extends Frame {
     }
     @Override
     public void keyPressed(KeyEvent e){
-      System.out.print(e.getKeyCode());
       switch (e.getKeyCode()) {
       case KeyEvent.VK_ENTER: //enter
-
         this.W.poly();
         break;
 
       case KeyEvent.VK_S: //s
-
         this.W.sobel();
-        System.out.print("hello, its me");
         break;
-
 
       }
     }

@@ -12,7 +12,10 @@ import java.awt.Color;
 import java.awt.*;
 import java.util.Scanner;
 import java.util.Random;
-
+import delaunay_triangulation.Delaunay_Triangulation;
+import delaunay_triangulation.Point_dt;
+import delaunay_triangulation.Triangle_dt;
+import java.util.Iterator;
 public class imageManipulator
 {
 
@@ -286,7 +289,7 @@ public class imageManipulator
     return points;
   }
 
-  
+
 
 
   public static int[][][] gaussianBlur(int[][][] image, int radius) {
@@ -347,6 +350,29 @@ public class imageManipulator
 
   public static Color oppositeColor(Color color) {
     return new Color(color.getBlue(), color.getRed(), color.getGreen());
+  }
+
+  public static List<Triangle> delaunay(List<Point> points){
+    Point_dt[] newlist = new Point_dt[points.size()];
+    for(int i = 0; i < points.size(); i++) {
+      Point p = points.get(i);
+      newlist[i] = new Point_dt(p.x, p.y);
+    }
+    Delaunay_Triangulation dt = new Delaunay_Triangulation(newlist);
+
+    ArrayList<Triangle> tl = new ArrayList(dt.trianglesSize());
+    Iterator<Triangle_dt> it = dt.trianglesIterator();
+    while (it.hasNext()) {
+      Triangle_dt t = it.next();
+      if (t.p1() != null && t.p2() != null && t.p3() != null){
+        Point p1 = new Point((int)t.p1().x(), (int)t.p1().y());
+        Point p2 = new Point((int)t.p2().x(), (int)t.p2().y());
+        Point p3 = new Point((int)t.p3().x(), (int)t.p3().y());
+
+        tl.add(new Triangle(p1,p2,p3));
+      }
+    }
+    return tl;
   }
 
 }

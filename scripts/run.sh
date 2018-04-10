@@ -1,1 +1,1 @@
-java -cp bin:lib/DT1.2 main
+java -cp bin:lib/DT1.2.jar main
