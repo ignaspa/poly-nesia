@@ -63,7 +63,6 @@ public class window extends Frame {
     //List<Point> points = imageManipulator.distributePoints(k2, 4000);
     List<Point> points = imageManipulator.distributePoisson(k2, 60);
     trianglePoints = points;
-    
     for(int x = 0; x < pic.getWidth();x++){
       for(int y = 0; y < pic.getHeight(); y++){
         int intensity = (int)(k2[x][y]*255);
