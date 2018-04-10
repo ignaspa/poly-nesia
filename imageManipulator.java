@@ -253,7 +253,8 @@ public class imageManipulator
 
 
 
-  // distributePoints returns nPoints random points concentrated according to the density array
+  // distributePoints returns nPoints random points concentrated according
+  // to the density array
   public static List<Point> distributePoints(double[][] density, int nPoints) {
     Random rand = new Random();
     ArrayList<Point> points = new ArrayList();
@@ -308,6 +309,9 @@ public class imageManipulator
     }
     return relaxedPoints;
   }
+
+
+
 
   public static int[][][] gaussianBlur(int[][][] image, int radius) {
     int[][][] blurredImage = new int[image.length][image[0].length][3];
