@@ -26,13 +26,13 @@ public static void main(String[] args)
   //int[][][] blurred = imageManipulator.gaussianBlur(img, radius);
   //imageManipulator.saveImage(blurred, pathout);
   window gui = new window(mg);
-  frame.addWindowListener(new WindowAdapter() {
-        @Override
-        public void windowClosing(WindowEvent e) {
-                // Terminate the program after the close button is clicked.
-                System.exit(0);
-        }
-      });
+  // frame.addWindowListener(new WindowAdapter() {
+  //       @Override
+  //       public void windowClosing(WindowEvent e) {
+  //               // Terminate the program after the close button is clicked.
+  //               System.exit(0);
+  //       }
+  //     });
 
 
 }
