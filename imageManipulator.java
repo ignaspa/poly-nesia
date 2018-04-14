@@ -16,6 +16,9 @@ import delaunay_triangulation.Delaunay_Triangulation;
 import delaunay_triangulation.Point_dt;
 import delaunay_triangulation.Triangle_dt;
 import java.util.Iterator;
+
+
+
 public class imageManipulator
 {
 
@@ -69,8 +72,8 @@ public class imageManipulator
 
   public static int[][][] getImageData(BufferedImage img) {
     //This method takes the BufferedImage we got from the source, and
-    //proceeds to make a 3 dimensional array for it so that
-    //we have access to the RGB color data for each pixel.
+    // proceeds to make a 3 dimensional array for it so that
+    // we have access to the RGB color data for each pixel.
     int wid = img.getWidth();
     int hite = img.getHeight();
 
@@ -92,8 +95,8 @@ public class imageManipulator
 
 
   public static BufferedImage enclosedImage(List<Point> outline, BufferedImage pic){
-    //this method makes a new BufferedImage based off of the pixels
-    //in list of pixels within the enclosed area chosen by the user.
+    // this method makes a new BufferedImage based off of the pixels
+    // in list of pixels within the enclosed area chosen by the user.
     BufferedImage enclosed = new BufferedImage(pic.getWidth(), pic.getHeight(), BufferedImage.TYPE_INT_RGB);
     for(int i = 0; i < pic.getWidth(); i++){
       for(int k = 0; k < pic.getHeight(); k++){
@@ -110,9 +113,9 @@ public class imageManipulator
 
 
   private static boolean pointInOutline(Point j, List<Point> outline){
-    //this method finds if a point is within the outline
-    //by checking how many times a line from it intersects
-    //with rays that make up the outline, and it uses rayLineIntersect to do so.
+    // this method finds if a point is within the outline
+    // by checking how many times a line from it intersects
+    // with rays that make up the outline, and it uses rayLineIntersect to do so.
     int countsect = 0;
     for(int i = 0; i < outline.size(); i++){
       Point r = outline.get(i);
@@ -167,7 +170,7 @@ public class imageManipulator
 
 
   private static double[][] gaussianRadius(int radius){
-    //this method applies uses the gauss method to
+    //this method applies the gauss method to
     //weight values around a pixel to simulate a gaussian curve for
     //use in blurring.
     int mid = radius + 1;
@@ -189,10 +192,12 @@ public class imageManipulator
 
 
   public static double[][] sobel(int[][][] image){
-    //this will return a all the pixels with a given "intensity"
-    //based on how much the color is changing on that pixel,
-    //both in the x and y direction. The method uses kernels to
-    //basically map vertical and horizontal changes.
+    // this will return a all the pixels with a given "intensity"
+    // based on how much the color is changing on that pixel,
+    // both in the x and y direction. The method uses kernels to
+    // basically map vertical and horizontal changes.
+    // https://en.wikipedia.org/wiki/Sobel_operator
+
     int[] y = {1, 2, 1,
                0, 0, 0,
               -1, -2, -1,};
@@ -205,6 +210,8 @@ public class imageManipulator
 
     for(int k = 1; k < image.length - 1; k++){
       for(int i = 1; i < image[0].length - 1; i++){
+        // this is how much the each color changes in the x and y
+        // direction. Basically - x:RGB and y:RGB
         double[][] accumulator = {{0, 0, 0}, {0, 0, 0}};
 
         for(int w = 0; w < 3; w++){
@@ -220,6 +227,7 @@ public class imageManipulator
         }
 
         double magnitude = 0;
+        //?
         for(int u = 0; u < accumulator.length; u++){
           for(int h = 0; h < accumulator[0].length; h++){
             magnitude += Math.pow(accumulator[u][h], 2);
@@ -243,7 +251,7 @@ public class imageManipulator
         }
       }
     }
-
+    //?
     for (int i = 0; i < sobs.length; i++) {
       for (int j = 0; j < sobs[0].length; j++) {
         sobs[i][j] = (sobs[i][j] - minDensity) / (maxDensity - minDensity);
@@ -254,6 +262,8 @@ public class imageManipulator
   }
 
   public static List<Point> distributePoisson(double[][] density, double radius) {
+    // this method will basically distribute a bunch of points randomly,
+    // so as to figure out the vertices for the triangles to make the poly art
     Random rand = new Random();
     ArrayList<Point> points = new ArrayList();
 
@@ -293,6 +303,9 @@ public class imageManipulator
 
 
   public static int[][][] gaussianBlur(int[][][] image, int radius) {
+    // this will use the gaussian radius method to weight the colors around
+    // each pixel and then create the average color for each pixel, and thus
+    // basically imitate a blur across the image.
     int[][][] blurredImage = new int[image.length][image[0].length][3];
     double[][] weights = gaussianRadius(radius);
     for(int k = 0; k < image.length; k++) {
@@ -327,6 +340,7 @@ public class imageManipulator
   }
 
   public static Color averageColor(BufferedImage image) {
+    // finds the average color around the pixel.
     int r = 0;
     int g = 0;
     int b = 0;
@@ -349,10 +363,14 @@ public class imageManipulator
   }
 
   public static Color oppositeColor(Color color) {
+    //inverses the color measurements, thus "flipping the color"
     return new Color(color.getBlue(), color.getRed(), color.getGreen());
   }
 
   public static List<Triangle> delaunay(List<Point> points){
+    // takes the poing as previously determined for the vertices
+    // then makes the the Delaunay Grid using an API we found
+    // https://www.cs.bgu.ac.il/~benmoshe/DT/
     Point_dt[] newlist = new Point_dt[points.size()];
     for(int i = 0; i < points.size(); i++) {
       Point p = points.get(i);

@@ -23,6 +23,9 @@ public class window extends Frame {
   public List<Point> trianglePoints;
   public int radius = 0;
 
+
+
+
   public window(BufferedImage pic) {
     this.pic = pic;
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -38,11 +41,17 @@ public class window extends Frame {
     pan.addKeyListener(new KeyEventHandler(this));
   }
 
+
+
+
   public void selectPoint(Point p) {
     Point q = new Point((int)p.getX() - pan.getMargin(), (int)p.getY() - pan.getMargin());
     selection.add(q);
     pan.repaint();
   }
+
+
+
 
   public void undoSelect() {
     if (selection.size() == 0)
@@ -51,11 +60,18 @@ public class window extends Frame {
     pan.repaint();
   }
 
+
+
+
   public void poly(){
     BufferedImage k = imageManipulator.enclosedImage(selection, pic);
     pan.setImage(k);
 
   }
+
+
+
+
   public void sobel(){
     int[][][] k = imageManipulator.getImageData(pic);
     double[][] k2 = imageManipulator.sobel(k);
@@ -90,6 +106,10 @@ public class window extends Frame {
 
     pan.repaint();
   }
+
+
+
+
 
   //handler classes fam
   private class MouseEventHandler extends MouseAdapter {

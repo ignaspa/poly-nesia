@@ -22,7 +22,9 @@ public class ImagePanel extends Panel {
     this.selection = selection;
     this.photo = picture;
     this.margin = 20;
-    this.setPreferredSize(new Dimension(picture.getWidth() + 2 * this.margin, picture.getHeight() + 2 * this.margin));
+    this.setPreferredSize(new Dimension(picture.getWidth() + 2 *
+                          this.margin, picture.getHeight() + 2 *
+                          this.margin));
   }
 
   public void paint(Graphics g) {

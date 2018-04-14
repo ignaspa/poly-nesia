@@ -19,12 +19,13 @@ public class buttonPanel extends Panel {
     setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
     Button incBlur = new Button("+ BLUR");
     Button decBlur = new Button("- BLUR");
+
     add(incBlur);
     add(decBlur);
     incBlur.addActionListener(new ActionHandler() {
       public void actionPerformed(ActionEvent event) {
         w.radius += 1;
-        System.out.print(w.radius);
+        //System.out.print(w.radius);
       }
     });
     decBlur.addActionListener(new ActionHandler() {
@@ -32,7 +33,7 @@ public class buttonPanel extends Panel {
         if (w.radius > 0) {
           w.radius -= 1;
         }
-        System.out.print(w.radius);
+        //System.out.print(w.radius);
       }
     });
 
