@@ -19,9 +19,13 @@ public class buttonPanel extends Panel {
     setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
     Button incBlur = new Button("+ BLUR");
     Button decBlur = new Button("- BLUR");
+    Button sel = new Button("Select Area");
+    Button poly = new Button("Polygonize");
 
     add(incBlur);
     add(decBlur);
+    add(poly);
+    add(sel);
     incBlur.addActionListener(new ActionHandler() {
       public void actionPerformed(ActionEvent event) {
         w.radius += 1;
@@ -36,7 +40,18 @@ public class buttonPanel extends Panel {
         //System.out.print(w.radius);
       }
     });
+    poly.addActionListener(new ActionHandler() {
+      public void actionPerformed(ActionEvent event) {
+        w.sobel();
 
+      }
+    });
+
+    sel.addActionListener(new ActionHandler() {
+      public void actionPerformed(ActionEvent event) {
+        System.out.print("select was clicked, but we havent implemented it yet");
+      }
+    });
 
   }
 }

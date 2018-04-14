@@ -147,9 +147,6 @@ public class window extends Frame {
         this.W.poly();
         break;
 
-      case KeyEvent.VK_S: //s
-        this.W.sobel();
-        break;
 
       }
     }
