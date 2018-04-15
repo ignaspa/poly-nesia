@@ -16,7 +16,7 @@ import delaunay_triangulation.Delaunay_Triangulation;
 import delaunay_triangulation.Point_dt;
 import delaunay_triangulation.Triangle_dt;
 import java.util.Iterator;
-
+import java.util.Arrays;
 
 
 public class imageManipulator
@@ -394,4 +394,33 @@ public class imageManipulator
     return tl;
   }
 
+
+  public static BufferedImage triangulize(List<Triangle> tris, int[][][] imagedata){
+    BufferedImage out = new BufferedImage(imagedata.length,imagedata[0].length, BufferedImage.TYPE_INT_RGB);
+    Graphics gr = out.getGraphics();
+
+    for(Triangle t : tris){
+      int r = 0;
+      int g = 0;
+      int b = 0;
+      int counter = 0;
+      int[] bounds = t.boundingbox();
+      for(int x = bounds[0]; x <= bounds[1]; x++){
+        for(int y = bounds[2]; y <= bounds[3]; y++){
+          if (pointInOutline(new Point(x,y), Arrays.asList(t.points))){
+            r += imagedata[x][y][0];
+            g += imagedata[x][y][1];
+            b += imagedata[x][y][2];
+            counter++;
+          }
+        }
+      }
+      Color avgcolor = new Color(r/counter, g/counter,b/counter );
+      gr.setColor(avgcolor);
+      int[] x = new int[] {t.points[0].x, t.points[1].x, t.points[2].x};
+      int[] y = new int[] {t.points[0].y, t.points[1].y, t.points[2].y};
+      gr.fillPolygon(x, y, 3);
+    }
+    return out;
+  }
 }

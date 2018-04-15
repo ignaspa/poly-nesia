@@ -42,7 +42,7 @@ public class buttonPanel extends Panel {
     });
     poly.addActionListener(new ActionHandler() {
       public void actionPerformed(ActionEvent event) {
-        w.sobel();
+        w.polygonize();
 
       }
     });

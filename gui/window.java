@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
 import imagemanipulator.imageManipulator;
 import imagemanipulator.Triangle;
 import javax.swing.BoxLayout;
-
+import java.util.Arrays;
 
 public class window extends Frame {
   BufferedImage pic;
@@ -39,6 +39,13 @@ public class window extends Frame {
     this.setVisible(true);
     pan.addMouseListener(new MouseEventHandler(this));
     pan.addKeyListener(new KeyEventHandler(this));
+    // addWindowListener(new WindowAdapter() {
+    //       @Override
+    //       public void windowClosing(WindowEvent e) {
+    //               // Terminate the program after the close button is clicked.
+    //               System.exit(0);
+    //       }
+    //     });
   }
 
 
@@ -63,7 +70,7 @@ public class window extends Frame {
 
 
 
-  public void poly(){
+  public void enclosed(){
     BufferedImage k = imageManipulator.enclosedImage(selection, pic);
     pan.setImage(k);
 
@@ -72,37 +79,40 @@ public class window extends Frame {
 
 
 
-  public void sobel(){
-    int[][][] k = imageManipulator.getImageData(pic);
-    double[][] k2 = imageManipulator.sobel(k);
+  public void polygonize(){
+    int[][][] imagedata = imageManipulator.getImageData(pic);
+    double[][] sobeldata = imageManipulator.sobel(imagedata);
 
     // Test the point generation
     //List<Point> points = imageManipulator.distributePoints(k2, 4000);
-    List<Point> points = imageManipulator.distributePoisson(k2, 100);
+    List<Point> points = imageManipulator.distributePoisson(sobeldata, 100);
     trianglePoints = points;
     List<Triangle> tris = imageManipulator.delaunay(points);
-    for(int x = 0; x < pic.getWidth();x++){
-      for(int y = 0; y < pic.getHeight(); y++){
-        int intensity = (int)(k2[x][y]*255);
-        Color color = new Color(intensity, intensity, intensity);
-        pic.setRGB(x,y,color.getRGB());
-      }
-    }
 
-    Color pointColor = Color.RED;
-    Graphics g = pic.getGraphics();
-    g.setColor(pointColor);
-    for (Point p : points) {
-      g.drawRect(p.x - 1, p.y - 1, 2, 2);
-      //pic.setRGB((int) p.getX(), (int) p.getY(), pointColor.getRGB());
-    }
+    pan.setImage(imageManipulator.triangulize(tris,imagedata));
 
-    g.setColor(Color.GREEN);
-    for (Triangle t : tris) {
-      int[] x = new int[] {t.points[0].x, t.points[1].x, t.points[2].x};
-      int[] y = new int[] {t.points[0].y, t.points[1].y, t.points[2].y};
-      g.drawPolygon(x, y, 3);
-    }
+    // for(int x = 0; x < pic.getWidth();x++){
+    //   for(int y = 0; y < pic.getHeight(); y++){
+    //     int intensity = (int)(sobeldata[x][y]*255);
+    //     Color color = new Color(intensity, intensity, intensity);
+    //     pic.setRGB(x,y,color.getRGB());
+    //   }
+    // }
+
+    // Color pointColor = Color.RED;
+    // Graphics g = pic.getGraphics();
+    // g.setColor(pointColor);
+    // for (Point p : points) {
+    //   g.drawRect(p.x - 1, p.y - 1, 2, 2);
+    //   //pic.setRGB((int) p.getX(), (int) p.getY(), pointColor.getRGB());
+    // }
+
+    // g.setColor(Color.GREEN);
+    // for (Triangle t : tris) {
+    //   int[] x = new int[] {t.points[0].x, t.points[1].x, t.points[2].x};
+    //   int[] y = new int[] {t.points[0].y, t.points[1].y, t.points[2].y};
+    //   g.drawPolygon(x, y, 3);
+    // }
 
     pan.repaint();
   }
@@ -144,7 +154,7 @@ public class window extends Frame {
     public void keyPressed(KeyEvent e){
       switch (e.getKeyCode()) {
       case KeyEvent.VK_ENTER: //enter
-        this.W.poly();
+        this.W.enclosed();
         break;
 
 
