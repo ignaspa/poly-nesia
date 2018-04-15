@@ -227,7 +227,8 @@ public class imageManipulator
         }
 
         double magnitude = 0;
-        //?
+        // taking the sum of the squares for all six and getting an avg.
+        // maginitude of a six dimensional vector.
         for(int u = 0; u < accumulator.length; u++){
           for(int h = 0; h < accumulator[0].length; h++){
             magnitude += Math.pow(accumulator[u][h], 2);
@@ -251,7 +252,7 @@ public class imageManipulator
         }
       }
     }
-    //?
+    // adjusting all points to be within 0 and 1 being those min/max densities
     for (int i = 0; i < sobs.length; i++) {
       for (int j = 0; j < sobs[0].length; j++) {
         sobs[i][j] = (sobs[i][j] - minDensity) / (maxDensity - minDensity);
