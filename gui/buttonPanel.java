@@ -49,7 +49,7 @@ public class buttonPanel extends Panel {
 
     sel.addActionListener(new ActionHandler() {
       public void actionPerformed(ActionEvent event) {
-        System.out.print("select was clicked, but we havent implemented it yet");
+        w.enclosed();
       }
     });
 

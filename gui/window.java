@@ -40,7 +40,7 @@ public class window extends Frame {
     this.pack();
     this.setVisible(true);
     pan.addMouseListener(new MouseEventHandler(this));
-    pan.addKeyListener(new KeyEventHandler(this));
+    
     addWindowListener(new WindowAdapter() {
           @Override
           public void windowClosing(WindowEvent e) {
@@ -123,7 +123,7 @@ public class window extends Frame {
 
 
 
-  //handler classes fam
+  //handler classes
   private class MouseEventHandler extends MouseAdapter {
     window W;
 
@@ -146,21 +146,5 @@ public class window extends Frame {
     }
 
   }
-  private class KeyEventHandler extends KeyAdapter{
-    window W;
 
-    public KeyEventHandler(window wndw) {
-      this.W = wndw;
-    }
-    @Override
-    public void keyPressed(KeyEvent e){
-      switch (e.getKeyCode()) {
-      case KeyEvent.VK_ENTER: //enter
-        this.W.enclosed();
-        break;
-
-
-      }
-    }
-  }
 }
