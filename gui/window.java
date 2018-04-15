@@ -14,6 +14,8 @@ import imagemanipulator.imageManipulator;
 import imagemanipulator.Triangle;
 import javax.swing.BoxLayout;
 import java.util.Arrays;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class window extends Frame {
   BufferedImage pic;
@@ -39,13 +41,13 @@ public class window extends Frame {
     this.setVisible(true);
     pan.addMouseListener(new MouseEventHandler(this));
     pan.addKeyListener(new KeyEventHandler(this));
-    // addWindowListener(new WindowAdapter() {
-    //       @Override
-    //       public void windowClosing(WindowEvent e) {
-    //               // Terminate the program after the close button is clicked.
-    //               System.exit(0);
-    //       }
-    //     });
+    addWindowListener(new WindowAdapter() {
+          @Override
+          public void windowClosing(WindowEvent e) {
+                  // Terminate the program after the close button is clicked.
+                  System.exit(0);
+          }
+        });
   }
 
 

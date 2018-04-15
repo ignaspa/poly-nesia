@@ -18,7 +18,7 @@ public static void main(String[] args)
   System.out.println("Please submit radius / blur spread");
   int radius = scannyboi.nextInt();
   */
-  String pathin = "example/flower.png";
+  String pathin = "example/ketchupstrachan.jpg";
   //String pathout= "example/flower.png";
   //int radius = 15;
   BufferedImage mg = imageManipulator.load(pathin);
@@ -26,7 +26,7 @@ public static void main(String[] args)
   //int[][][] blurred = imageManipulator.gaussianBlur(img, radius);
   //imageManipulator.saveImage(blurred, pathout);
   window gui = new window(mg);
-  
+
 
 
 }
