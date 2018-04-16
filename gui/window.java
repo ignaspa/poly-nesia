@@ -21,11 +21,8 @@ public class window extends Frame {
   BufferedImage pic;
   ImagePanel pan;
   public ArrayList<Point> selection = new ArrayList();
-
   public List<Point> trianglePoints;
   public int radius = 0;
-
-
 
 
   public window(BufferedImage pic) {
@@ -40,7 +37,7 @@ public class window extends Frame {
     this.pack();
     this.setVisible(true);
     pan.addMouseListener(new MouseEventHandler(this));
-    
+
     addWindowListener(new WindowAdapter() {
           @Override
           public void windowClosing(WindowEvent e) {
@@ -78,6 +75,20 @@ public class window extends Frame {
 
   }
 
+  public void blur(int radius){
+    int[][][] img = imageManipulator.getImageData(pic);
+    int[][][] blurred = imageManipulator.gaussianBlur(img, radius);
+    BufferedImage k = new BufferedImage(blurred.length,blurred[0].length, BufferedImage.TYPE_INT_RGB);
+    for(int i = 0; i < blurred.length; i++){
+      for(int m = 0; m < blurred[0].length; m++){
+        Color blurcolor = new Color(blurred[i][m][0], blurred[i][m][1], blurred[i][m][2]);
+        int blur = blurcolor.getRGB();
+        k.setRGB(i, m, blur);
+      }
+    }
+    pan.setImage(k);
+
+  }
 
 
 

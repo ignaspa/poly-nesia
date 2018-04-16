@@ -29,6 +29,7 @@ public class buttonPanel extends Panel {
     incBlur.addActionListener(new ActionHandler() {
       public void actionPerformed(ActionEvent event) {
         w.radius += 1;
+        w.blur(w.radius);
         //System.out.print(w.radius);
       }
     });
@@ -36,6 +37,7 @@ public class buttonPanel extends Panel {
       public void actionPerformed(ActionEvent event) {
         if (w.radius > 0) {
           w.radius -= 1;
+          w.blur(w.radius);
         }
         //System.out.print(w.radius);
       }
