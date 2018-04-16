@@ -98,7 +98,7 @@ public class window extends Frame {
 
     // Test the point generation
     //List<Point> points = imageManipulator.distributePoints(k2, 4000);
-    List<Point> points = imageManipulator.distributePoisson(sobeldata, 100);
+    List<Point> points = imageManipulator.distributePoisson(sobeldata, 40);
     trianglePoints = points;
     List<Triangle> tris = imageManipulator.delaunay(points);
 

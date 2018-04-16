@@ -403,7 +403,7 @@ public class imageManipulator
       int r = 0;
       int g = 0;
       int b = 0;
-      int counter = 0;
+      int counter = 1;
       int[] bounds = t.boundingbox();
       for(int x = bounds[0]; x <= bounds[1]; x++){
         for(int y = bounds[2]; y <= bounds[3]; y++){
@@ -415,6 +415,7 @@ public class imageManipulator
           }
         }
       }
+
       Color avgcolor = new Color(r/counter, g/counter,b/counter );
       gr.setColor(avgcolor);
       int[] x = new int[] {t.points[0].x, t.points[1].x, t.points[2].x};
