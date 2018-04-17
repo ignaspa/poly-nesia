@@ -1,7 +1,21 @@
-# poly-nesia
-Project undertaken with Jonah Simpson to learn some image manipulation as well
-as create effects. Currently we have successfully implemented Gaussian blurring
-and shape selection tool. Our current goal is to have an easy process
-which takes an image, allows the user to select a shape within it, and returns
-an image with the background blurred and the selected area as a bunch of
-basic triangles with average colors (poly art).
+# POLY-NESIA
+
+### General Summary
+This is a project I undertook with Jonah Simpson (jonahs99) to learn
+some image manipulation. We had several primary objectives...
+
+1) synthetically blur an image
+2) select areas within an image and cut them out
+3) transform an image into a more primitive polygon composite, ie poly art
+
+We have successfully implemented such processes.
+
+### Examples
+
+pre-blur:
+
+![blurone](https://raw.githubusercontent.com/ignaspa/poly-nesia/master/example/mountain.jpg)
+
+post-blur:
+
+![blurone](https://raw.githubusercontent.com/ignaspa/poly-nesia/master/example/mountain.png)
