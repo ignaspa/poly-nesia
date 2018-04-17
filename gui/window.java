@@ -98,7 +98,17 @@ public class window extends Frame {
 
     // Test the point generation
     //List<Point> points = imageManipulator.distributePoints(k2, 4000);
+
+
+    // CHANGE VALUE AFTER sobeldata, TO CHANGE POLYGON NUMBER
+    // INCREASE POLYGONS, decrease number
+    // DECREASE POLYGONS, increase number
     List<Point> points = imageManipulator.distributePoisson(sobeldata, 40);
+
+
+
+
+
     trianglePoints = points;
     List<Triangle> tris = imageManipulator.delaunay(points);
 

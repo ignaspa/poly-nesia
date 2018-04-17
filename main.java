@@ -18,7 +18,14 @@ public static void main(String[] args)
   System.out.println("Please submit radius / blur spread");
   int radius = scannyboi.nextInt();
   */
+
+
+  // CHANGE FILE HERE FOR DIFFERENT IMAGE
   String pathin = "example/flower.jpg";
+
+
+
+
   //String pathout= "example/flower.png";
   //int radius = 15;
   BufferedImage mg = imageManipulator.load(pathin);
